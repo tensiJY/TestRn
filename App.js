@@ -1,14 +1,13 @@
 import React from 'react';
 import {SafeAreaView, Text} from 'react-native';
 
+import SNSapp from './src/SNSapp/SNSapp';
+
 const App = ()=>{
 
     return(
         <SafeAreaView>
-            <Text>12</Text>
-            <Text>1333</Text>
-            <Text>12</Text>
-            <Text>1333</Text>
+            <SNSapp />
         </SafeAreaView>
     )
 
