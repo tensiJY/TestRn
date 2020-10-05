@@ -5,8 +5,8 @@ const App = ()=>{
 
     return(
         <SafeAreaView>
-            <Text>1</Text>
+            <Text>12</Text>
         </SafeAreaView>
     )
-    
+
 }
