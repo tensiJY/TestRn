@@ -100,12 +100,12 @@ const RandomUserDataProvider = ({cache, children}) =>{
         console.log('setImages cachedData : ', cachedData);
         if(cachedData){
          
-            // if (Image.queryCache) {
-            //     Image.queryCache(cachedData);
-            //     cachedData.map((data) => {
-            //       Image.prefetch(data);
-            //     });
-            //   }
+            if (Image.queryCache) {
+                Image.queryCache(cachedData);
+                cachedData.map((data) => {
+                  Image.prefetch(data);
+                });
+              }
 
             setImageList(cachedData);
             return;
