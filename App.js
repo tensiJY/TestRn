@@ -7,7 +7,8 @@ import {SafeAreaView, Text, View, TouchableOpacity, TouchableHighlight, Image } 
 //  AsyncStorage Test
 //import UserData from './src/Test/AsyncStorage'
 
-import {UserContext, UserContextProvider} from './src/SNSapp/Context/User'
+import {UserContext, UserContextProvider} from './src/SNSapp/Context/User';
+import {RandomUserDataContext, RandomUserDataProvider} from './src/SNSapp/Context/RandomUserData';
 
 
 //import SNSapp from './src/SNSapp/SNSapp';
@@ -15,9 +16,11 @@ import {UserContext, UserContextProvider} from './src/SNSapp/Context/User'
 const Cview = ()=>{
 
     const {userInfo, isLoding} = useContext(UserContext);
+    const {getMyFeed} = useContext(RandomUserDataContext)
 
     console.log('Cview : ', userInfo);
     console.log('Cview : ', isLoding);
+    
 
     useEffect( ()=>{
         
@@ -39,7 +42,9 @@ const App = ()=>{
         
     return(
         <UserContextProvider>
-           <Cview />
+            <RandomUserDataProvider>
+                <Cview />
+           </RandomUserDataProvider>
         </UserContextProvider>
     )
 
