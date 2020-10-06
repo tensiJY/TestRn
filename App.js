@@ -1,15 +1,34 @@
-import React from 'react';
-import {SafeAreaView, Text} from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
+import React, { useEffect } from 'react';
+import {SafeAreaView, Text, View} from 'react-native';
 
-import SNSapp from './src/SNSapp/SNSapp';
+//  AsyncStorage Test
+import UserData from './src/Test/AsyncStorage'
+
+
+
+//import SNSapp from './src/SNSapp/SNSapp';
 
 const App = ()=>{
+    useEffect( ()=>{
+        console.log('App')
+        
+    }, [])
+
 
     return(
-        <SafeAreaView>
-            <SNSapp />
-        </SafeAreaView>
+        <View>
+            <UserData />
+        </View>
     )
+  
+
+    // return(
+    //     <SafeAreaView>
+    //         <SNSapp />
+            
+    //     </SafeAreaView>
+    // )
 
 }
 
