@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useState } from 'react';
 
 import {SafeAreaView, Text, View, TouchableOpacity, TouchableHighlight, Image } from 'react-native';
 
+
+
 //  AsyncStorage Test
 //import UserData from './src/Test/AsyncStorage'
 
@@ -15,7 +17,11 @@ const Cview = ()=>{
     const {userInfo, isLoding} = useContext(UserContext);
 
     console.log('Cview : ', userInfo);
-    console.log('Cview : ', isLoding)
+    console.log('Cview : ', isLoding);
+
+    useEffect( ()=>{
+        
+    },[])
 
     return(
         <View>

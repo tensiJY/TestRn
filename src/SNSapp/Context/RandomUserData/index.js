@@ -12,7 +12,48 @@ const RandomUserDataContext = createContext({
 });
 
 const RandomUserDataProvider = ({cache, children}) =>{
+    const [userList, setUserList] = useState([]);
+    const [descriptionList, setDescriptionList] = useState([]);
 
-}
+    const getCacheData = async (key) => {
+        const cacheData = await AsyncStorage.getItem(key);
+
+        if(cache=== false || cacheData == null){
+            return undefined;
+        }
+
+        const cacheList = JSON.parse(cacheData);
+
+        if(cacheList.length !== 25){
+            return undefined;
+        }
+
+        return cacheList;
+    }
+
+    const setCacheData = (key, data)=>{
+        AsyncStorage.setItem(key, JSON.stringify(data));
+    }
+
+    const setUsers = async () => {
+        const cachedData = await getCacheData('UserList');
+        if(cachedData){
+            setUserList(cachedData);
+            return;
+        }
+
+        try{
+
+        }catch(error){
+            console.log(error)
+        }
+    };
+
+    return(
+        <RandomUserDataContext.Provider>
+                {children}
+        </RandomUserDataContext.Provider>
+    )
+};
 
 export {RandomUserDataContext, RandomUserDataProvider}
