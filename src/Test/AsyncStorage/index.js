@@ -9,19 +9,28 @@ const userData = ( ) => {
     const getUserInfo = async () => {
         try{
             console.log('start getUserInfo')
-            await AsyncStorage.getItem('token')
-            .then( (value)=>{
-                if(value== undefined || value == null){
-                   console.log('getUserInfo : undefined')
-    
-                }else{
-                    console.log('getUserInfo : ', value)
+
+            const data = await AsyncStorage.getItem('token').catch(
+                (error)=>{
+                    console.log(error)
                 }
+            )
+
+            console.log('getUserInfo - data : ', data)
+
+            // await AsyncStorage.getItem('token')
+            // .then( (value)=>{
+            //     if(value== undefined || value == null){
+            //        console.log('getUserInfo : undefined')
     
-            })
-            .catch( (error)=>{
-                console.log(error)
-            });//AsyncStorage.getItem
+            //     }else{
+            //         console.log('getUserInfo : ', value)
+            //     }
+    
+            // })
+            // .catch( (error)=>{
+            //     console.log(error)
+            // });//AsyncStorage.getItem
         }catch(error){
 
         }
