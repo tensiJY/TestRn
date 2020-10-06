@@ -8,13 +8,16 @@ const RandomUserDataContext = createContext({
     //  number의 인수가 없을 경우 10
     getMyFeed:(number=10)=>{
         return [];
-    }
+    },
+    removeItem : (key)=>{}
 });
 
 const RandomUserDataProvider = ({cache, children}) =>{
     const [userList, setUserList] = useState([]);
     const [descriptionList, setDescriptionList] = useState([]);
     const [imageList, setImageList] = useState([]);
+
+    
 
     //  cache를 false로 선언하였거나, 이전에 캐싱한 데이터가 없는 경우
     //  fetch api를 통해 새롭게 데이터를 가져옴.
@@ -38,9 +41,16 @@ const RandomUserDataProvider = ({cache, children}) =>{
         AsyncStorage.setItem(key, JSON.stringify(data));
     }
 
+    const removeItem = (key)=>{
+        console.log('remove item : ' , key)
+        AsyncStorage.removeItem(key);
+    }
+
     const setUsers = async () => {
         const cachedData = await getCacheData('UserList');
+        
         if(cachedData){
+            //console.log('UserList : ', userList)
             setUserList(cachedData);
             return;
         }
@@ -50,6 +60,8 @@ const RandomUserDataProvider = ({cache, children}) =>{
             const data = await response.json();
             setUserList(data);
             setCachedData('UserList', data);
+
+            
         }catch(error){
             console.log('setUsers error');
             console.log(error);
@@ -58,8 +70,8 @@ const RandomUserDataProvider = ({cache, children}) =>{
 
     const setDescriptions = async () =>{
         const cachedData = await getCacheData('DescriptionList');
-        console.log('setDescriptions');
-        console.log(cachedData);
+        //console.log('setDescriptions');
+        //console.log(cachedData);
 
         if(cachedData){
             setDescriptionList(cachedData);
@@ -85,13 +97,15 @@ const RandomUserDataProvider = ({cache, children}) =>{
 
     const setImages = async () => {
         const cachedData = await getCacheData('ImageList');
+        console.log('setImages cachedData : ', cachedData);
         if(cachedData){
-            if(Image.queryCache){
-                Image.queryCache(cachedData);
-                cachedData.map( (data)=>{
-                    Image.prefetch(data);
-                });
-            }
+         
+            // if (Image.queryCache) {
+            //     Image.queryCache(cachedData);
+            //     cachedData.map((data) => {
+            //       Image.prefetch(data);
+            //     });
+            //   }
 
             setImageList(cachedData);
             return;
@@ -99,8 +113,19 @@ const RandomUserDataProvider = ({cache, children}) =>{
 
         setTimeout( async ()=>{
             try{
-                const response = fetch('https://source.unsplash.com/random/');
-                const data = await response.url;
+                // let r = Math.floor(Math.random()*100);
+                // const response = await fetch(`https://jsonplaceholder.typicode.com/photos?id=${r}`)
+                // const json = await response.json();
+                // const data = json[0].url
+                // console.log(data)
+
+
+
+                const response = await fetch('https://source.unsplash.com/random/');
+                const data = response.url;
+
+                console.log('response.url : ', data);
+
                 if(imageList.indexOf(data)>=0){
                     setImages();
                     return;
@@ -112,21 +137,29 @@ const RandomUserDataProvider = ({cache, children}) =>{
                 console.log('setImages error');
                 console.log(error)
             }
-        }, 400)
+
+            //console.log('setImages : ', imageList.length);
+        }, 1000)
     }
 
     useEffect( ()=>{
+        console.log('RandomUserDataProvider : useEffect')        
+
         setUsers();
         setDescriptions();
+        
+      
+        
     },[])
 
     useEffect( ()=>{
+        console.log( 'useEffect, imageList')
         if(imageList.length !== 25){
             setImages();
         } else {
             setCachedData('ImageList', imageList);
         }
-
+        
     },[imageList])
 
 
@@ -155,11 +188,12 @@ const RandomUserDataProvider = ({cache, children}) =>{
         return feeds;
     }
 
+
     console.log(`${userList.length} / ${descriptionList.length} / ${imageList.length}`);
 
     return(
         <RandomUserDataContext.Provider
-            value={{getMyFeed}}
+            value={{getMyFeed, removeItem}}
         >
                 { userList.length === 25 && descriptionList.length === 25 && imageList.length === 25 ? (children) : <Loading />}
         </RandomUserDataContext.Provider>
