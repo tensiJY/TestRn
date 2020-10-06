@@ -6,6 +6,40 @@ import {UserContext} from '../../Context/User';
 import Input from '../../Components/Input';
 import Button from '../../Components/Button';
 
+
+const Login = ({navigation})=>{
+    const {login} = useContext(UserContext);
+
+    useEffect( ()=>{
+        //  splash
+        console.log('Login useEffect');        
+    },[])
+
+    return(
+        <SafeAreaView style={styles.container}>
+            <View style={styles.formContainer}>
+                <Text style={styles.logoText}>SNS App</Text>
+                <Input style={{marginBottom : 16}} placeholder='이메일'/>
+                <Input style={{marginBottom : 16}} placeholder='비밀번호' secureTextEntry={true}/>
+                <Text style={styles.passwordResetText} onPress={()=>navigation.navigate('PasswordReset')}>
+                    비밀번호 재설정
+                </Text>
+                <Button label='로그인' style={{marginBottom : 24}} onPress={()=>{login('dev.yakuza@gamil.com', 'paswword')}}/>
+                <Text style={styles.signupText}>
+                    계정이 없으신가요?{' '}
+                    <Text style={styles.signupLink} onPress={()=>{navigation.navigate('Signup')}}>
+                        가입하기.
+                    </Text>
+                </Text>
+            </View>
+            <View style={styles.footerView}>
+                <Text style={styles.copyrightText}>SNSApp from dev-jy</Text>
+            </View>
+        </SafeAreaView>
+    )
+}
+
+
 const styles = StyleSheet.create({
     container : {
         flex : 1,
@@ -20,7 +54,7 @@ const styles = StyleSheet.create({
     logoText : {
         color : '#292929',
         fontSize : 40,
-        fontWeight : 'blod',
+        fontWeight : 'bold',
         textAlign : 'center',
         marginBottom : 40
     },
@@ -46,21 +80,6 @@ const styles = StyleSheet.create({
         textAlign : 'center'
     }
 });
-
-const Login = ({navigation})=>{
-    const {login} = useContext(UserContext);
-
-    useEffect( ()=>{
-        //  splash
-        console.log('Login useEffect');        
-    },[])
-
-    return(
-        <SafeAreaView>
-            
-        </SafeAreaView>
-    )
-}
 
 export default Login;
 
