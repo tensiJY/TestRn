@@ -16,35 +16,31 @@ import {RandomUserDataContext, RandomUserDataProvider} from './src/SNSapp/Contex
 const Cview = ()=>{
 
     const {userInfo, isLoding} = useContext(UserContext);
-    const {getMyFeed} = useContext(RandomUserDataContext)
+    const {getMyFeed, removeItem} = useContext(RandomUserDataContext)
 
     console.log('Cview : ', userInfo);
     console.log('Cview : ', isLoding);
     
 
-    useEffect( ()=>{
-        
-    },[])
-
+    
+    
     return(
         <View>
-            <Text>1</Text>
+            <TouchableOpacity onPress={removeItem('ImageList')}>
+                <Text>1</Text>
+            </TouchableOpacity>
         </View>
     )
 }
 
 const App = ()=>{
-    useEffect( ()=>{
-        console.log('App')
-        
-    }, [])
-
+   
         
     return(
         <UserContextProvider>
-            <RandomUserDataProvider>
+           <RandomUserDataProvider>
                 <Cview />
-           </RandomUserDataProvider>
+            </RandomUserDataProvider>
         </UserContextProvider>
     )
 
