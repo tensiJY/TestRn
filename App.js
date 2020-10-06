@@ -4,8 +4,10 @@ import {SafeAreaView, Text, View, TouchableOpacity, TouchableHighlight, Image } 
 //  AsyncStorage Test
 //import UserData from './src/Test/AsyncStorage'
 
+
 import {UserContext, UserContextProvider} from './src/SNSapp/Context/User';
 import {RandomUserDataContext, RandomUserDataProvider} from './src/SNSapp/Context/RandomUserData';
+import Login from './src/SNSapp/Screens/Login'
 
 //import SNSapp from './src/SNSapp/SNSapp';
 
@@ -13,7 +15,7 @@ import {RandomUserDataContext, RandomUserDataProvider} from './src/SNSapp/Contex
 const App = ()=>{
     return(
         <View style={{flex:1}}>
-            <Text style={{textAlign : 'center'}}>1</Text>
+            <Login/>
         </View>
     )
         
